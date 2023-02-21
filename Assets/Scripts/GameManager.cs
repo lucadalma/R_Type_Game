@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    [SerializeField] public GameObject enemyLevel;
+
     public enum GameStatus 
     {
        MenuStart,

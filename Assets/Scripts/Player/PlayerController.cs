@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float healthPlayer;
     [SerializeField] float speedPlayer = 500f;
     [SerializeField] float sprintSpeedPlayer = 1000f;
-    [SerializeField] GameObject bullet;
-    [SerializeField] float bulletDamage;
-    public float stamina = 100f;
+    [SerializeField] Image StaminaBar;
+    public float stamina = 1f;
 
     Rigidbody2D rigidbody2D;
 
@@ -29,10 +29,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MovePlayer();
-
-        if (stamina < 100) 
+        if (stamina < 1 && !Input.GetButton("Sprint")) 
         {
             RestoreStamina();
+            Debug.Log("Recuperando Stamina: " + stamina);
         }
     }
 
@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
             Vector2 movementPlayerSprint = new Vector2(horizontalSprint, verticalSprint);
 
             rigidbody2D.velocity = movementPlayerSprint * Time.deltaTime;
+            ConsumeStamina(0.8f);
+            Debug.Log("Consumando Stamina: " + stamina);
         }
         else 
         {
@@ -62,21 +64,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-    private void Shoot() 
+    public void ConsumeStamina(float value) 
     {
-        bool shoot = Input.GetButtonDown("Jump");
-        
+        stamina -= value * Time.deltaTime;
+        StaminaBar.fillAmount = stamina;
     }
 
-    private void ConsumeStamina() 
+    public void ConsumeStaminaAll() 
     {
-        
+        stamina = 0;
+        StaminaBar.fillAmount = stamina;
     }
 
     private void RestoreStamina()
     {
-
+        stamina += 0.4f * Time.deltaTime;
+        StaminaBar.fillAmount = stamina;
     }
 
 }
