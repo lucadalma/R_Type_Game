@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class LimitLevel : MonoBehaviour
 {
+    [SerializeField] bool enemy;
+    string collisionTag;
+
+    private void Start()
+    {
+        if (enemy)
+        {
+            collisionTag = "Enemy";
+        }
+        else 
+        {
+           collisionTag = "Bullet";
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Bullet")) 
+        if (collision.gameObject.CompareTag(collisionTag)) 
         {
             Destroy(collision.gameObject);
         }

@@ -7,11 +7,10 @@ public class MuzzleShoot : MonoBehaviour
 
     [SerializeField] GameObject FastBullet;
     [SerializeField] float FastBulletSpeed = 10f;
-    [SerializeField] public float FastBulletDamage = 10f;
+
 
     [SerializeField] GameObject SlowBullet;
     [SerializeField] float SlowBulletSpeed = 5f;
-    [SerializeField] public float SlowBulletDamage = 20f;
 
 
     private List<GameObject> bulletsSlowShoot = new List<GameObject>();

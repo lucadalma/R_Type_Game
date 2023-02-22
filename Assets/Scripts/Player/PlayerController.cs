@@ -13,6 +13,16 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rigidbody2D;
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet")) 
+        {
+            BulletStats bulletEnemy = collision.gameObject.GetComponent<BulletStats>();
+            healthPlayer -= bulletEnemy.bulletDamage;
+            Destroy(collision.gameObject);
+        }
+    }
+
     private void Start()
     {
         try
@@ -32,7 +42,12 @@ public class PlayerController : MonoBehaviour
         if (stamina < 1 && !Input.GetButton("Sprint")) 
         {
             RestoreStamina();
-            Debug.Log("Recuperando Stamina: " + stamina);
+            //Debug.Log("Recuperando Stamina: " + stamina);
+        }
+
+        if (healthPlayer <= 0) 
+        {
+            //GameOver
         }
     }
 
@@ -49,11 +64,11 @@ public class PlayerController : MonoBehaviour
 
             rigidbody2D.velocity = movementPlayerSprint * Time.deltaTime;
             ConsumeStamina(0.8f);
-            Debug.Log("Consumando Stamina: " + stamina);
+            //Debug.Log("Consumando Stamina: " + stamina);
         }
         else 
         {
-            Debug.Log("Normal");
+            //Debug.Log("Normal");
             float horizontal = Input.GetAxisRaw("Horizontal") * speedPlayer;
             float vertical = Input.GetAxisRaw("Vertical") * speedPlayer;
 
