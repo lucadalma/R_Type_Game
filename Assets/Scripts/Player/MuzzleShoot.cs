@@ -17,10 +17,12 @@ public class MuzzleShoot : MonoBehaviour
     private List<GameObject> bulletsFastShoot = new List<GameObject>();
 
     PlayerController playerController;
+    GameManager gameManager;
 
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -51,8 +53,8 @@ public class MuzzleShoot : MonoBehaviour
 
     private void ShootFastBullet()
     {
-        bool shoot = Input.GetKeyDown("q");
-        if (shoot)
+        bool shoot = Input.GetKeyDown("j");
+        if (shoot && gameManager.gameStatus == GameManager.GameStatus.GameRunning)
         {
             bulletsFastShoot.Add(Instantiate(FastBullet, transform.position, Quaternion.identity));
 
@@ -61,8 +63,8 @@ public class MuzzleShoot : MonoBehaviour
 
     private void ShootSlowBullet()
     {
-        bool shoot = Input.GetKeyDown("e");
-        if (shoot)
+        bool shoot = Input.GetKeyDown("k");
+        if (shoot && gameManager.gameStatus == GameManager.GameStatus.GameRunning)
         {
             bulletsSlowShoot.Add(Instantiate(SlowBullet, transform.position, Quaternion.identity));
             playerController.ConsumeStaminaAll();

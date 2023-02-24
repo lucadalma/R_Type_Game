@@ -5,26 +5,42 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float healthPlayer;
+    [SerializeField] public float healthPlayer;
     [SerializeField] float speedPlayer = 500f;
     [SerializeField] float sprintSpeedPlayer = 1000f;
     [SerializeField] Image StaminaBar;
+    [SerializeField] Image HPBar;
     public float stamina = 1f;
 
     Rigidbody2D rigidbody2D;
+    GameManager gameManager;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("EnemyBullet")) 
         {
-            BulletStats bulletEnemy = collision.gameObject.GetComponent<BulletStats>();
+            EnemyBullet bulletEnemy = collision.gameObject.GetComponent<EnemyBullet>();
             healthPlayer -= bulletEnemy.bulletDamage;
+            HPBar.fillAmount = healthPlayer / 100;
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("LifeGem"))
+        {
+            LifeGem lifeGem = collision.gameObject.GetComponent<LifeGem>();
+            healthPlayer += lifeGem.healtRestored;
+            if (healthPlayer > 100)
+            {
+                healthPlayer = 100;
+            }
+            HPBar.fillAmount = healthPlayer / 100;
+            Destroy(collision.gameObject);
+        }
+
     }
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         try
         {
             rigidbody2D = GetComponent<Rigidbody2D>();
@@ -38,6 +54,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        HPBar.fillAmount = healthPlayer / 100;
+
+        if (healthPlayer > 100) 
+        {
+            healthPlayer = 100;
+        }
+
         MovePlayer();
         if (stamina < 1 && !Input.GetButton("Sprint")) 
         {
@@ -47,7 +70,9 @@ public class PlayerController : MonoBehaviour
 
         if (healthPlayer <= 0) 
         {
-            //GameOver
+            gameManager.gameStatus = GameManager.GameStatus.GameEnd;
+            gameManager.gameResult = GameManager.GameResult.playerLose;
+            Destroy(gameObject);
         }
     }
 
@@ -63,7 +88,7 @@ public class PlayerController : MonoBehaviour
             Vector2 movementPlayerSprint = new Vector2(horizontalSprint, verticalSprint);
 
             rigidbody2D.velocity = movementPlayerSprint * Time.deltaTime;
-            ConsumeStamina(0.8f);
+            ConsumeStamina(0.6f);
             //Debug.Log("Consumando Stamina: " + stamina);
         }
         else 
@@ -93,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void RestoreStamina()
     {
-        stamina += 0.4f * Time.deltaTime;
+        stamina += 0.5f * Time.deltaTime;
         StaminaBar.fillAmount = stamina;
     }
 

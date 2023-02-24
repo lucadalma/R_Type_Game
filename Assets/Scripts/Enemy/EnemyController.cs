@@ -8,22 +8,27 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] float health;
     [SerializeField] float enemySpeed;
-    [SerializeField] float enemyDamage;
 
     [SerializeField] GameObject enemyBullet;
-    [SerializeField] float enemySpeedBullet;
     [SerializeField] Transform muzzle;
 
 
     [SerializeField] Image LifeBar;
     [SerializeField] float enemyShootRate;
 
-    PlayerController playerController;
-    GameObject player;
 
     Rigidbody2D rigidbody2D;
-    private List<GameObject> bulletsEnemy = new List<GameObject>();
-    
+    GameManager gameManager;
+
+    private IEnumerator coroutine;
+
+    public enum Movement 
+    {
+        Straight,
+        ZigZag
+    }
+
+    public Movement movementEnemy;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -34,7 +39,6 @@ public class EnemyController : MonoBehaviour
             
             health -= bulletStats.bulletDamage;
             LifeBar.fillAmount = health / 100;
-            
             Destroy(collision.gameObject);
 
         }
@@ -44,40 +48,59 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-
-        playerController = FindObjectOfType<PlayerController>();
-        player = playerController.gameObject;
+        gameManager = FindObjectOfType<GameManager>();
+        coroutine = EnemyShoot(enemyShootRate);
+        StartCoroutine(coroutine);
     }
 
     private void Update()
     {
         if (health <= 0) 
         {
+            gameManager.killCount += 1;
+            Debug.Log(gameManager.killCount);
             Destroy(gameObject);
         }
 
-        foreach (GameObject bulletEnemy in bulletsEnemy)
-        {
-            if (bulletEnemy != null)
-            {
-                bulletEnemy.transform.position = Vector2.MoveTowards(bulletEnemy.transform.position, player.transform.position, enemySpeedBullet * Time.deltaTime);
-            }
-        }
+        //foreach (GameObject bulletEnemy in bulletsEnemy)
+        //{
+        //    if (bulletEnemy != null)
+        //    {
+        //        bulletEnemy.transform.position = Vector2.MoveTowards(bulletEnemy.transform.position, player.transform.position, enemySpeedBullet * Time.deltaTime);
 
-        MoveEnemy();
-        StartCoroutine("EnemyShoot");
+        //    }
+        //}
+
+        if (movementEnemy == Movement.Straight)
+        {
+            MoveEnemyStraight();
+        } 
+        else if (movementEnemy == Movement.ZigZag) 
+        {
+            MoveEnemyZigZag();
+        }
+        
+
     }
 
-    private void MoveEnemy() 
+    private void MoveEnemyStraight() 
     {
         Vector2 movementEnemy = new Vector2(-1, 0 );
         rigidbody2D.velocity = movementEnemy * enemySpeed * Time.deltaTime;
     }
 
-    private IEnumerable EnemyShoot()
+    private void MoveEnemyZigZag()
     {
-        bulletsEnemy.Add(Instantiate(enemyBullet, muzzle.transform.position, Quaternion.identity));
-        Debug.Log("ShootPlayer");
-        yield return new WaitForSeconds(1);
+        Vector2 movementEnemy = new Vector2(-1, 0) * enemySpeed * Time.deltaTime;
+        rigidbody2D.velocity = movementEnemy + new Vector2(0,1) * Mathf.Sin(Time.time * 2) * 1;
+    }
+
+    IEnumerator EnemyShoot(float _enemyShootRate)
+    {
+        for (; ; )
+        {
+            Instantiate(enemyBullet, muzzle.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(_enemyShootRate);
+        }
     }
 }

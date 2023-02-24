@@ -20,7 +20,11 @@ public class LimitLevel : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(collisionTag)) 
+        if (collision.gameObject.CompareTag(collisionTag))
+        {
+            Destroy(collision.gameObject);
+        }
+        else if (collisionTag == "Enemy" && collision.gameObject.CompareTag("LifeGem")) 
         {
             Destroy(collision.gameObject);
         }

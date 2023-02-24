@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3315959633980575140}
   - component: {fileID: 7924572826100763199}
   - component: {fileID: 3121091429680831845}
-  - component: {fileID: 6513841469322087319}
+  - component: {fileID: 1809851225703056439}
   m_Layer: 3
   m_Name: SlowBullet
   m_TagString: Bullet
@@ -153,7 +153,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.00000014901151, y: 0.00000093877327}
   m_Size: {x: 0.59553546, y: 0.30188227}
   m_Direction: 1
---- !u!114 &6513841469322087319
+--- !u!114 &1809851225703056439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,4 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d787f7ed7f1a4a48bf1fde8f121126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDamage: 50
+  bulletDamage: 60

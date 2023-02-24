@@ -5,8 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
-  - Enemy
   - EnemyBullet
+  - EnemyWave1
+  - EnemyWave2
+  - EnemyWave3
+  - Enemy
+  - LifeGem
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - Player
   - Enemy
   - EnemyBullet
-  - 
+  - LifeGem
   - 
   - 
   - 
