@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 58511085}
   - component: {fileID: 58511084}
   - component: {fileID: 58511086}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,9 +391,9 @@ GameObject:
   - component: {fileID: 139524763}
   - component: {fileID: 139524762}
   - component: {fileID: 139524764}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Limit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -836,6 +836,7 @@ Transform:
   m_LocalPosition: {x: -17.56, y: 1.23, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1831339926}
   - {fileID: 896330501}
   - {fileID: 804585592}
   - {fileID: 1840871752}
@@ -1488,7 +1489,7 @@ Transform:
   m_Children:
   - {fileID: 139524761}
   m_Father: {fileID: 519420032}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812273248
 GameObject:
@@ -1711,7 +1712,7 @@ Transform:
   - {fileID: 1921623825}
   - {fileID: 1393499448}
   m_Father: {fileID: 519420032}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &896330502
 MonoBehaviour:
@@ -1727,9 +1728,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edge1: {fileID: 1393499448}
   edge2: {fileID: 1921623825}
-  spawnEnemyRate: 1.5
+  spawnEnemyRate: 1.2
   spawnGemRate: 9.6
+  Boss: {fileID: 640508252839914942, guid: 0ff6728eefce4154689926a381d78412, type: 3}
   lifeGem: {fileID: 1721231236620676786, guid: 7402040943ed03b488e525d48499095a, type: 3}
+  bossPosition: {fileID: 1831339926}
 --- !u!1 &920894936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,7 +3212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393499447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8100004, y: 5.07, z: 0}
+  m_LocalPosition: {x: -0.8100004, y: 4.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 896330501}
@@ -3889,6 +3892,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795353960}
   m_CullTransparentMesh: 1
+--- !u!1 &1831339925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1831339926}
+  m_Layer: 0
+  m_Name: BossPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1831339926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831339925}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.48, y: -0.040453076, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1833988584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3954,8 +3987,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPlayer: 100
-  speedPlayer: 1800
-  sprintSpeedPlayer: 2200
+  speedPlayer: 1500
+  sprintSpeedPlayer: 1800
   StaminaBar: {fileID: 596578872}
   HPBar: {fileID: 2003148104}
   stamina: 1
@@ -4009,7 +4042,7 @@ Transform:
   m_Children:
   - {fileID: 58511083}
   m_Father: {fileID: 519420032}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1877168946
 GameObject:

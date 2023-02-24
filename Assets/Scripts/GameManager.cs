@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         }
         else if (killCount == 40)
         {
-            
+            uIManager.WaveNumber("BOSS");
             wave = Waves.Boss;
             playerController.healthPlayer = 100;
         }

@@ -11,6 +11,9 @@ TagManager:
   - EnemyWave3
   - Enemy
   - LifeGem
+  - EnemyBoss
+  - AreaDamage
+  - Limit
   layers:
   - Default
   - TransparentFX
@@ -22,9 +25,9 @@ TagManager:
   - Enemy
   - EnemyBullet
   - LifeGem
-  - 
-  - 
-  - 
+  - EnemyBoss
+  - AreaDamage
+  - Limit
   - 
   - 
   - 

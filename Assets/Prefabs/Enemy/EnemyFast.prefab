@@ -337,13 +337,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077e88c8d8f7fef4fb0ed3883c280e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  enemySpeed: 1300
-  enemyDamage: 10
+  health: 40
+  enemySpeed: 1000
   enemyBullet: {fileID: 1390421179196908319, guid: 52188c0e733ffdf4ca8c9a5af8405c6f, type: 3}
   muzzle: {fileID: 2095624038663890465}
   LifeBar: {fileID: 1945221290045112973}
-  enemyShootRate: 1.8
+  enemyShootRate: 1.4
   movementEnemy: 1
 --- !u!50 &8165908169248196985
 Rigidbody2D:
