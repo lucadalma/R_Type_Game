@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnerEnemy : MonoBehaviour
 {
+
+    //variabili
     [SerializeField] Transform edge1;
     [SerializeField] Transform edge2;
     [SerializeField] float spawnEnemyRate;
@@ -17,6 +19,8 @@ public class SpawnerEnemy : MonoBehaviour
     float spawnGemTimer;
     float upLimit, downLimit;
     int numberBoss = 0;
+    List<GameObject> enemys = new List<GameObject>();
+
 
     void Start()
     {
@@ -29,18 +33,19 @@ public class SpawnerEnemy : MonoBehaviour
 
     void Update()
     {
+        //Codice spawn in base alla wave
         if (gameManager.wave == GameManager.Waves.Wave1)
         {
             enemyToSpawn = gameManager.enemyWave1;
         }
         else if (gameManager.wave == GameManager.Waves.Wave2)
         {
-            spawnEnemyRate = 1f;
+            spawnEnemyRate = 1.1f;
             enemyToSpawn = gameManager.enemyWave2;
         }
         else if (gameManager.wave == GameManager.Waves.Wave3)
         {
-            spawnEnemyRate = 1.2f;
+            spawnEnemyRate = 1.5f;
             enemyToSpawn = gameManager.enemyWave3;
         }
         else if (gameManager.wave == GameManager.Waves.Boss) 
@@ -71,7 +76,7 @@ public class SpawnerEnemy : MonoBehaviour
     private void SpawnEnemys() 
     {
         Vector2 spawnPosition = new Vector2(transform.position.x, Random.Range(upLimit, downLimit));
-        GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+        enemys.Add(Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity));
         spawnTimer = 0;
     }
 
@@ -79,6 +84,10 @@ public class SpawnerEnemy : MonoBehaviour
     {
         Vector2 spawnPosition = new Vector2(bossPosition.position.x, bossPosition.position.y);
         GameObject boss = Instantiate(Boss, spawnPosition, Quaternion.identity);
+        foreach (GameObject enemy in enemys)
+        {
+            Destroy(enemy);
+        }
     }
 
     private void SpawnGem()

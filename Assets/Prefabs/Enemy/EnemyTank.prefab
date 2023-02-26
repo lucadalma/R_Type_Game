@@ -180,11 +180,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  enemySpeed: 600
+  enemySpeed: 800
   enemyBullet: {fileID: 7530281859068373473, guid: 65b1b22e9f6841546a9e2f015c6412a5, type: 3}
   muzzle: {fileID: 4287485486513135348}
   LifeBar: {fileID: 2455559784812058320}
-  enemyShootRate: 3
+  enemyShootRate: 2.5
   movementEnemy: 0
 --- !u!50 &1501613582278778470
 Rigidbody2D:

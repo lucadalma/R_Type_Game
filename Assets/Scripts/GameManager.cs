@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //Enum per le diverse Waves
     public enum Waves 
     {
         Wave1,
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
         Boss
     }
 
+    //Enum per i vari stati di gioco
     public enum GameStatus
     {
         MenuStart,
@@ -22,27 +24,40 @@ public class GameManager : MonoBehaviour
         GameEnd
     }
 
+    //Enum per il risultato del game
     public enum GameResult 
     {
         playerWin,
         playerLose
     }
 
+
+    //Variabili
     [SerializeField] public GameObject enemyWave1;
     [SerializeField] public GameObject enemyWave2;
     [SerializeField] public GameObject enemyWave3;
+    [SerializeField] public int killWave2 = 20;
+    [SerializeField] public int killWave3 = 35;
+    [SerializeField] public int killWaveBoss = 55;
+
     UIManager uIManager;
     PlayerController playerController;
     public GameStatus gameStatus;
     public GameResult gameResult;
     public Waves wave;
     public int killCount = 0;
-
+    bool onetime1 = false;
+    bool onetime2 = false;
+    bool onetime3 = false;
 
     private void Start()
     {
+        //ottengo l' UI manager
         uIManager = FindObjectOfType<UIManager>();
+        //ottengo il player
         playerController = FindObjectOfType<PlayerController>();
+
+        //settiamo le variabili iniziali
         gameStatus = GameStatus.MenuStart;
         wave = Waves.Wave1;
         uIManager.WaveNumber("Wave 1");
@@ -50,9 +65,28 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
+        //aggiorno la ui del killcounter
         uIManager.KillCounterUI(killCount);
 
+
+        //aggiornoi la ui
+        if (wave == Waves.Wave1) 
+        {
+            uIManager.KillUntilNextWave_txt.text = "Kill next wave: " + (killWave2 - killCount);
+        }else if (wave == Waves.Wave2)
+        {
+            uIManager.KillUntilNextWave_txt.text = "Kill next wave: " + (killWave3 - killCount);
+        }
+        else if (wave == Waves.Wave3)
+        {
+            uIManager.KillUntilNextWave_txt.text = "Kill until boss: " + (killWaveBoss - killCount);
+        }
+        else if (wave == Waves.Boss)
+        {
+            uIManager.KillUntilNextWave_txt.text = "";
+        }
+
+        //codice per mettere in pausa
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameStatus == GameStatus.GamePause)
@@ -65,7 +99,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
+        //codice per modificare i gamestatus
         if (gameStatus == GameStatus.MenuStart)
         {
             uIManager.StartGame();
@@ -91,28 +125,40 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        if (killCount == 15)
+
+        //controllo e aggiorno le wave
+        if (killCount == killWave2)
         {
             uIManager.WaveNumber("Wave 2");
             wave = Waves.Wave2;
-            playerController.healthPlayer = 100;
+            if (!onetime1)
+            {
+                playerController.healthPlayer += 50;
+                onetime1 = true;
+            }
         }
-        else if (killCount == 30) 
+        else if (killCount == killWave3) 
         {
             uIManager.WaveNumber("Wave 3");
             wave = Waves.Wave3;
-            playerController.healthPlayer = 100;
+            if (!onetime2)
+            {
+                playerController.healthPlayer += 50;
+                onetime2 = true;
+            }
         }
-        else if (killCount == 40)
+        else if (killCount == killWaveBoss)
         {
             uIManager.WaveNumber("BOSS");
             wave = Waves.Boss;
-            playerController.healthPlayer = 100;
+            if (!onetime3)
+            {
+                playerController.healthPlayer += 50;
+                onetime3 = true;
+            }
         }
 
-
-
-
+        //Aggiorno ui
         if (gameResult == GameResult.playerWin)
         {
             uIManager.PlayerWinUI();
@@ -123,20 +169,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
     public void GameRunning()
     {
         gameStatus = GameStatus.GameRunning;
     }
 
+    //esci dal gioco
     public void QuitGame()
     {
         Application.Quit();
     }
 
+    //ricarica la scena
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    
 
 
 }

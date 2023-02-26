@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject Lose_txt;
     [SerializeField] Text Wave_txt;
     [SerializeField] Text KillCounter_txt;
+    [SerializeField] public Text KillUntilNextWave_txt;
 
 
     public void StartGame() 
@@ -71,6 +72,8 @@ public class UIManager : MonoBehaviour
     {
         KillCounter_txt.text = "Kill: " + number.ToString();
     }
+
+    
 
 
 }
