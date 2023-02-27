@@ -4817,8 +4817,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPlayer: 100
-  speedPlayer: 1500
-  sprintSpeedPlayer: 1800
+  speedPlayer: 700
+  sprintSpeedPlayer: 1000
   StaminaBar: {fileID: 596578872}
   HPBar: {fileID: 2003148104}
   stamina: 1

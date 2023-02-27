@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 80
-  enemySpeed: 1000
+  enemySpeed: 700
   enemyBullet: {fileID: 1390421179196908319, guid: 52188c0e733ffdf4ca8c9a5af8405c6f, type: 3}
   muzzle: {fileID: 1084353934826252203}
   LifeBar: {fileID: 6939502955282454543}
