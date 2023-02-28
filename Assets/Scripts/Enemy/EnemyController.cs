@@ -32,6 +32,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //controllo se colpito da un proiettiles
         if (collision.gameObject.CompareTag("Bullet"))
         {
             GameObject bullet = collision.gameObject;
@@ -50,11 +51,13 @@ public class EnemyController : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
         coroutine = EnemyShoot(enemyShootRate);
+        //shoot dell'enemy
         StartCoroutine(coroutine);
     }
 
     private void Update()
     {
+        //controllo se l'enemy è stato ucciso
         if (health <= 0) 
         {
             gameManager.killCount += 1;
@@ -62,15 +65,7 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //foreach (GameObject bulletEnemy in bulletsEnemy)
-        //{
-        //    if (bulletEnemy != null)
-        //    {
-        //        bulletEnemy.transform.position = Vector2.MoveTowards(bulletEnemy.transform.position, player.transform.position, enemySpeedBullet * Time.deltaTime);
-
-        //    }
-        //}
-
+        //due metodi di movimento
         if (movementEnemy == Movement.Straight)
         {
             MoveEnemyStraight();
@@ -82,19 +77,21 @@ public class EnemyController : MonoBehaviour
         
 
     }
-
+    //movimento dritto
     private void MoveEnemyStraight() 
     {
         Vector2 movementEnemy = new Vector2(-1, 0 );
-        rigidbody2D.velocity = movementEnemy * enemySpeed * Time.deltaTime;
+        rigidbody2D.velocity = movementEnemy * enemySpeed;
     }
 
+    //movimento zig zag
     private void MoveEnemyZigZag()
     {
-        Vector2 movementEnemy = new Vector2(-1, 0) * enemySpeed * Time.deltaTime;
+        Vector2 movementEnemy = new Vector2(-1, 0) * enemySpeed;
         rigidbody2D.velocity = movementEnemy + new Vector2(0,1) * Mathf.Sin(Time.time * 2) * 1;
     }
 
+    //metodo per il shooting dell'enemy
     IEnumerator EnemyShoot(float _enemyShootRate)
     {
         for (; ; )

@@ -14,6 +14,7 @@ public class BossController : MonoBehaviour
     Camera camera;
     Transform bossPosition;
 
+    //vita boss
     public float healtBoss = 500;
     float healtBar;
 
@@ -28,11 +29,14 @@ public class BossController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //controllare se colpito
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Debug.Log("Hit");
             BulletStats bullet = collision.gameObject.GetComponent<BulletStats>();
+            //prendo danno
             healtBoss -= bullet.bulletDamage;
+            //aggiorno barra vita
             LifeBar.fillAmount = healtBoss / healtBar;
             Destroy(collision.gameObject);
         }
@@ -47,7 +51,7 @@ public class BossController : MonoBehaviour
 
         Bullets[0] = FastBossBullet;
         Bullets[1] = slowBossBullet;
-
+        
         coroutine1 = BossShoot(bossShootRate, muzzleUp);
         coroutine2 = BossShoot(bossShootRate, muzzleDown);
 
@@ -71,10 +75,12 @@ public class BossController : MonoBehaviour
 
     }
 
+    //metodo per sparare
     IEnumerator BossShoot(float _bossShootRate, Transform _muzzle)
     {
         for (; ; )
         {
+            //Sparo random uno dei due proiettili a disposizione
             Instantiate(Bullets[Random.Range(0,2)],_muzzle.position, Quaternion.identity);
             yield return new WaitForSeconds(_bossShootRate);
             Debug.Log("Shoot");

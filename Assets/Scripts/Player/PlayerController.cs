@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //ottengo collisione dai proiettili dell'enemy
         if (collision.gameObject.CompareTag("EnemyBullet")) 
         {
             EnemyBullet bulletEnemy = collision.gameObject.GetComponent<EnemyBullet>();
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
             HPBar.fillAmount = healthPlayer / 100;
             Destroy(collision.gameObject);
         }
+        //ottengo collisione con la lifegem
         else if (collision.gameObject.CompareTag("LifeGem"))
         {
             LifeGem lifeGem = collision.gameObject.GetComponent<LifeGem>();
@@ -54,20 +56,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //aggiorno la barra della vita
         HPBar.fillAmount = healthPlayer / 100;
 
+        //controllo valore vita
         if (healthPlayer > 100) 
         {
             healthPlayer = 100;
         }
-
+        //muovo il player
         MovePlayer();
+
+
         if (stamina < 1 && !Input.GetButton("Sprint")) 
         {
             RestoreStamina();
-            //Debug.Log("Recuperando Stamina: " + stamina);
         }
 
+        //condizione se il player muore
         if (healthPlayer <= 0) 
         {
             gameManager.gameStatus = GameManager.GameStatus.GameEnd;
@@ -78,28 +84,28 @@ public class PlayerController : MonoBehaviour
 
     public void MovePlayer()
     {
+        //Sprint player
         if (Input.GetButton("Sprint") && stamina > 0)
         {
 
-            Debug.Log("Sprint");
             float horizontalSprint = Input.GetAxisRaw("Horizontal") * sprintSpeedPlayer;
             float verticalSprint = Input.GetAxisRaw("Vertical") * sprintSpeedPlayer;
 
             Vector2 movementPlayerSprint = new Vector2(horizontalSprint, verticalSprint);
 
-            rigidbody2D.velocity = movementPlayerSprint * Time.deltaTime;
+            rigidbody2D.velocity = movementPlayerSprint;
             ConsumeStamina(0.6f);
             //Debug.Log("Consumando Stamina: " + stamina);
         }
         else 
         {
-            //Debug.Log("Normal");
+            //movimento normale player
             float horizontal = Input.GetAxisRaw("Horizontal") * speedPlayer;
             float vertical = Input.GetAxisRaw("Vertical") * speedPlayer;
 
             Vector2 movementPlayer = new Vector2(horizontal, vertical);
 
-            rigidbody2D.velocity = movementPlayer * Time.deltaTime;
+            rigidbody2D.velocity = movementPlayer;
         }
 
     }

@@ -36,6 +36,7 @@ public class SpawnerEnemy : MonoBehaviour
         //Codice spawn in base alla wave
         if (gameManager.wave == GameManager.Waves.Wave1)
         {
+            //cambio l'enemy to spawn in base alla wave
             enemyToSpawn = gameManager.enemyWave1;
         }
         else if (gameManager.wave == GameManager.Waves.Wave2)
@@ -73,6 +74,7 @@ public class SpawnerEnemy : MonoBehaviour
         }
     }
 
+    
     private void SpawnEnemys() 
     {
         Vector2 spawnPosition = new Vector2(transform.position.x, Random.Range(upLimit, downLimit));
@@ -90,6 +92,7 @@ public class SpawnerEnemy : MonoBehaviour
         }
     }
 
+    //metodo per spawnare la life gem
     private void SpawnGem()
     {
         Vector2 spawnPosition = new Vector2(transform.position.x, Random.Range(upLimit, downLimit));

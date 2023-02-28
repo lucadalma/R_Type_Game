@@ -20,7 +20,7 @@ public class LifeGem : MonoBehaviour
 
     void Update()
     {
-        Vector2 movementEnemy = new Vector2(-1, 0) * 1200 * Time.deltaTime;
+        Vector2 movementEnemy = new Vector2(-1, 0) * 9;
         rigidbody2D.velocity = movementEnemy + new Vector2(0, 1) * Mathf.Sin(Time.time * 4) * 1.3f;
     }
 }

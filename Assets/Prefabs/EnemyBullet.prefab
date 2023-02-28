@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 15
-  enemySpeedBullet: 10
+  enemySpeedBullet: 15
 --- !u!1 &1390421180200802954
 GameObject:
   m_ObjectHideFlags: 0
